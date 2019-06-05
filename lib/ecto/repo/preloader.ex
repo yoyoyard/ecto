@@ -178,9 +178,13 @@ defmodule Ecto.Repo.Preloader do
     query =
       case card do
         :many ->
-          update_in query.order_bys, fn order_bys ->
-            [%Ecto.Query.QueryExpr{expr: [asc: field], params: [],
-                                   file: __ENV__.file, line: __ENV__.line}|order_bys]
+          if Enum.empty?(query.order_bys) do
+            update_in query.order_bys, fn order_bys ->
+              [%Ecto.Query.QueryExpr{expr: [asc: field], params: [],
+                                    file: __ENV__.file, line: __ENV__.line}|order_bys]
+            end
+          else
+            query
           end
         :one ->
           query
