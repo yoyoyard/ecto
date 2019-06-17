@@ -525,7 +525,7 @@ defmodule Ecto.Association.Has do
     cond do
       not is_atom(queryable) or queryable in env.context_modules ->
         :ok
-      not Code.ensure_compiled?(queryable) ->
+      not Code.ensure_compiled?(queryable) and :code.get_mode() != :embedded ->
         {:error, "associated schema #{inspect queryable} does not exist"}
       not function_exported?(queryable, :__schema__, 2) ->
         {:error, "associated module #{inspect queryable} is not an Ecto schema"}
@@ -822,7 +822,7 @@ defmodule Ecto.Association.BelongsTo do
     cond do
       not is_atom(queryable) or queryable in env.context_modules ->
         :ok
-      not Code.ensure_compiled?(queryable) ->
+      not Code.ensure_compiled?(queryable) and :code.get_mode() != :embedded ->
         {:error, "associated schema #{inspect queryable} does not exist"}
       not function_exported?(queryable, :__schema__, 2) ->
         {:error, "associated module #{inspect queryable} is not an Ecto schema"}
@@ -976,7 +976,7 @@ defmodule Ecto.Association.ManyToMany do
     cond do
       not is_atom(queryable) or queryable in env.context_modules ->
         :ok
-      not Code.ensure_compiled?(queryable) ->
+      not Code.ensure_compiled?(queryable) and :code.get_mode() != :embedded ->
         {:error, "associated schema #{inspect queryable} does not exist"}
       not function_exported?(queryable, :__schema__, 2) ->
         {:error, "associated module #{inspect queryable} is not an Ecto schema"}
