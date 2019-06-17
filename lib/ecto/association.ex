@@ -535,6 +535,8 @@ defmodule Ecto.Association.Has do
         true ->
           :ok
       end
+    else
+      :ok
     end
   end
 
@@ -834,6 +836,8 @@ defmodule Ecto.Association.BelongsTo do
         true ->
           :ok
       end
+    else
+      :ok
     end
   end
 
@@ -994,6 +998,8 @@ defmodule Ecto.Association.ManyToMany do
         true ->
           :ok
       end
+    else
+      :ok
     end
   end
 
